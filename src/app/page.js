@@ -30,9 +30,12 @@ export default function Home() {
       isScrollingRef.current = true;
 
       // Always move only one step, regardless of scroll intensity
-      if (e.deltaY > 0 && activeIndex < slides.length - 1) {
+      // Use Math.sign to get only direction (-1, 0, 1) regardless of intensity
+      const direction = Math.sign(e.deltaY);
+      
+      if (direction > 0 && activeIndex < slides.length - 1) {
         setActiveIndex(prev => prev + 1);
-      } else if (e.deltaY < 0 && activeIndex > 0) {
+      } else if (direction < 0 && activeIndex > 0) {
         setActiveIndex(prev => prev - 1);
       }
 
