@@ -21,8 +21,15 @@ export default function Home() {
   const isScrollingRef = useRef(false);
 
   useEffect(() => {
+    let scrollTimeout;
+    
     const onWheel = (e) => {
       e.preventDefault();
+      
+      // Clear any existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
       
       // Prevent multiple scroll events
       if (isScrollingRef.current) return;
@@ -36,19 +43,34 @@ export default function Home() {
         setActiveIndex(prev => prev - 1);
       }
 
-      // Reset scroll lock after animation
-      setTimeout(() => {
+      // Reset scroll lock after animation with longer delay
+      scrollTimeout = setTimeout(() => {
         isScrollingRef.current = false;
-      }, 1000); // Increased delay to prevent rapid scrolling
+      }, 1500); // Increased delay to prevent rapid scrolling
     };
 
     const container = containerRef.current;
     if (container) {
       container.addEventListener("wheel", onWheel, { passive: false });
-      return () => container.removeEventListener("wheel", onWheel);
+      return () => {
+        container.removeEventListener("wheel", onWheel);
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+      };
     }
   }, [activeIndex]);
 
+  const handleIndicatorClick = (index) => {
+    if (isScrollingRef.current) return; // Prevent clicking while scrolling
+    
+    isScrollingRef.current = true;
+    setActiveIndex(index);
+    
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1500); // Same delay as scroll
+  };
 
   return (
     <div 
