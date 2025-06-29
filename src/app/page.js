@@ -77,10 +77,12 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.2 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                className={`relative ${
+                className={`relative w-[850px] h-[850px] ${
+                  activeIndex === 2 ? "-mt-16" : "-mt-12"
+                } ${
                   activeIndex === 2 
-                    ? "w-[800px] h-[800px] -mt-16" 
-                    : "w-[900px] h-[900px] -mt-12"
+                    ? "scale-75 md:scale-50" 
+                    : "scale-100 md:scale-100"
                 }`}
               >
                 <RiveScrollViewer src={slides[activeIndex].src} />

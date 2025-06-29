@@ -7,10 +7,10 @@ const RiveComponent = dynamic(
 
 export default function RiveScrollViewer({ src }) {
   return (
-    <div className="w-[900px] h-[900px] flex flex-col items-center justify-center relative">
+    <div className="w-[850px] h-[850px] flex flex-col items-center justify-center relative">
       <RiveComponent
         src={src}
-        style={{ width: "900px", height: "900px", display: "block" }}
+        style={{ width: "850px", height: "850px", display: "block" }}
       />
     </div>
   );
