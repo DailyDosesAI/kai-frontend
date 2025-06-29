@@ -3,14 +3,50 @@
 import Link from "next/link";
 import RiveScrollViewer from "../components/RiveScrollViewer";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+
+const slides = [
+  { src: "/1.riv", label: "Human Like AI Tutor" },
+  { src: "/2.riv", label: "Your Personalized Road Map" },
+  { src: "/2.1.riv", label: "" },
+  { src: "/3.riv", label: "Voice and Video Calls and text" },
+  { src: "/4.riv", label: "Your Personalized  Practices" },
+];
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef(null);
+  const cooldownRef = useRef(false);
+
+  useEffect(() => {
+    const onWheel = (e) => {
+      e.preventDefault();
+      if (cooldownRef.current) return;
+      cooldownRef.current = true;
+
+      if (e.deltaY > 0 && activeIndex < slides.length - 1) {
+        setActiveIndex((prev) => prev + 1);
+      } else if (e.deltaY < 0 && activeIndex > 0) {
+        setActiveIndex((prev) => prev - 1);
+      }
+
+      setTimeout(() => (cooldownRef.current = false), 700);
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("wheel", onWheel, { passive: false });
+      return () => container.removeEventListener("wheel", onWheel);
+    }
+  }, [activeIndex]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div 
+      ref={containerRef}
+      className="flex flex-col min-h-screen overflow-hidden"
+    >
       <header className="bg-nav-bar py-4 sm:py-6 fixed w-full top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4 sm:px-10">
           <h1 className="text-xl sm:text-2xl font-bold text-black">Kai</h1>
@@ -22,14 +58,60 @@ export default function Home() {
 
       <div className="h-[60px] sm:h-[72px]" />
 
-      <main className="flex flex-col items-center flex-grow overflow-hidden pb-[220px] sm:pb-[220px] px-2 sm:px-4 relative">
+      {/* Scroll Indicators */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2">
+        {slides.map((_, index) => (
+          <motion.div
+            key={index}
+            className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+              index === activeIndex 
+                ? 'bg-blue scale-125' 
+                : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+            onClick={() => setActiveIndex(index)}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          />
+        ))}
+      </div>
+
+      <main className="flex flex-col items-center flex-grow relative">
         
         <div className="max-w-full sm:max-w-[600px] w-full flex flex-col items-center">
-          <div className="w-full" style={{ minHeight: 1200, height: "auto" }}>
-            <RiveScrollViewer
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-            />
+          <div className="w-full h-screen flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slides[activeIndex].src}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.2 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
+                className="relative w-[800px] h-[800px] -mt-12"
+              >
+                <RiveScrollViewer
+                  src={slides[activeIndex].src}
+                />
+              </motion.div>
+            </AnimatePresence>
+            
+            <motion.p
+              key={`label-${activeIndex}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl sm:text-3xl md:text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
+            >
+              <Typewriter
+                words={[slides[activeIndex].label]}
+                loop={1}
+                cursor
+                cursorStyle=""
+                typeSpeed={60}
+                deleteSpeed={40}
+                delaySpeed={1000}
+              />
+            </motion.p>
           </div>
         </div>
 
