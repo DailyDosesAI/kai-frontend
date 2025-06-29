@@ -10,6 +10,11 @@ const figtree = Figtree({
 export const metadata = {
   title: "Kai",
   description: "Learning language with Ai",
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
