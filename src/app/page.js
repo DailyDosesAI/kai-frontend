@@ -1,28 +1,28 @@
 "use client";
 
-import Link from "next/link";
 import RiveScrollViewer from "../components/RiveScrollViewer";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import Link from "next/link";
 
 const slides = [
   {
     src: "/1.riv",
-    label: "Human Like AI Tutor",
-    subHeading: "Learn AI English With AI and get  real time feedback",
+    label: "Human-Like AI Tutor",
+    subHeading: "Enjoy private sessions just like with a real tutor",
   },
   {
     src: "/2.riv",
-    label: "Your Personalized Road Map",
-    subHeading: "Learn AI English With AI and get  real time feedback",
+    label: "Personalized Lesson Plan",
+    subHeading: "Kai tailors lessons to your goals, level, and preferences.",
   },
   { src: "/2.1.riv", label: "", subHeading: "" },
   {
     src: "/3.riv",
-    label: "Voice and Video Calls and text",
-    subHeading: "Learn AI English With AI and get  real time feedback",
+    label: "Talk to Kai Anytime",
+    subHeading: "Call or message Kai—voice, video, or chat, 24/7",
   },
   //{ src: "/4.riv", label: "Your Personalized  Practices" },
 ];
@@ -114,9 +114,11 @@ export default function Home() {
     >
       <header className="bg-nav-bar py-4 sm:py-6 fixed w-full top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4 sm:px-10">
-          <h1 className="text-xl sm:text-2xl font-bold text-black">Kai</h1>
-          <div className="bg-blue text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base">
-            <h2>Get in touch</h2>
+          <h1 className="text-xl sm:text-2xl font-bold text-black">Kai Language Lab</h1>
+          <div className="bg-blue text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base cursor-pointer hover:bg-blue/90 transition-colors">
+            <Link href="mailto:hi@dailydoses.ai" className="text-white no-underline">
+              <h2>Get in Touch</h2>
+            </Link>
           </div>
         </div>
       </header>
@@ -149,21 +151,31 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="absolute top-[47%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
             >
-              <Typewriter
-                words={[slides[activeIndex].label]}
-                loop={1}
-                cursor
-                cursorStyle=""
-                typeSpeed={60}
-                deleteSpeed={40}
-                delaySpeed={1000}
-              />
-
-              <div className="text-center text-gray font-medium text-[1rem] mt-4">
-                <p>{slides[activeIndex].subHeading}</p>
-              </div>
-
+              {slides[activeIndex].label && (
+                <Typewriter
+                  words={[slides[activeIndex].label]}
+                  loop={1}
+                  cursor
+                  cursorStyle=""
+                  typeSpeed={60}
+                  deleteSpeed={40}
+                  delaySpeed={1000}
+                />
+              )}
             </motion.p>
+
+            {slides[activeIndex].subHeading && (
+              <motion.p
+                key={`subheading-${activeIndex}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, delay: 1.5 }}
+                className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray font-medium text-[1rem] w-full px-4 z-50"
+              >
+                {slides[activeIndex].subHeading}
+              </motion.p>
+            )}
           </div>
         </div>
 
