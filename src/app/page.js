@@ -77,7 +77,7 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.2 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                className="relative w-[800px] h-[800px] -mt-12"
+                className="relative w-[900px] h-[900px] -mt-12"
               >
                 <RiveScrollViewer src={slides[activeIndex].src} />
               </motion.div>
@@ -89,7 +89,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl sm:text-3xl md:text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
+              className="absolute top-[47%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl sm:text-3xl md:text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
             >
               <Typewriter
                 words={[slides[activeIndex].label]}
