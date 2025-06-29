@@ -77,13 +77,7 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.2 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                className={`relative w-[850px] h-[850px] ${
-                  activeIndex === 2 ? "-mt-16" : "-mt-12"
-                } ${
-                  activeIndex === 2 
-                    ? "scale-75 md:scale-50" 
-                    : "scale-100 md:scale-100"
-                }`}
+                className={`relative w-[850px] h-[850px] ${activeIndex === 2 ? "-mt-16" : "-mt-12"}`}
               >
                 <RiveScrollViewer src={slides[activeIndex].src} />
               </motion.div>
@@ -95,7 +89,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute top-[47%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl sm:text-3xl md:text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
+              className="absolute top-[47%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
             >
               <Typewriter
                 words={[slides[activeIndex].label]}
