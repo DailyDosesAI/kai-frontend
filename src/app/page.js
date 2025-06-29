@@ -21,13 +21,16 @@ export default function Home() {
   const isScrollingRef = useRef(false);
 
   useEffect(() => {
+    let isProcessing = false;
+    
     const onWheel = (e) => {
       e.preventDefault();
       
-      // Prevent multiple scroll events
-      if (isScrollingRef.current) return;
+      // Strong protection against multiple scroll events
+      if (isScrollingRef.current || isProcessing) return;
       
       isScrollingRef.current = true;
+      isProcessing = true;
 
       // Always move only one step, regardless of scroll intensity
       // Use Math.sign to get only direction (-1, 0, 1) regardless of intensity
@@ -42,7 +45,8 @@ export default function Home() {
       // Reset scroll lock after animation
       setTimeout(() => {
         isScrollingRef.current = false;
-      }, 500); // Shorter delay for better responsiveness
+        isProcessing = false;
+      }, 800); // Longer delay to ensure animation completes
     };
 
     const container = containerRef.current;
@@ -60,7 +64,7 @@ export default function Home() {
     
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 500); // Same delay as scroll
+    }, 800); // Same delay as scroll
   };
 
   return (
