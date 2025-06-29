@@ -22,7 +22,7 @@ const slides = [
   {
     src: "/3.riv",
     label: "Talk to Kai Anytime",
-    subHeading: "Call or message Kai—voice, video, or chat, 24/7",
+    subHeading: "Call or message Kai-voice, video, or chat, 24/7",
   },
   //{ src: "/4.riv", label: "Your Personalized  Practices" },
 ];
@@ -149,7 +149,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute top-[47%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
+              className="absolute top-[43%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-4xl font-semibold text-center select-none w-full px-4 break-words z-50 rounded-lg py-2"
             >
               {slides[activeIndex].label && (
                 <Typewriter
@@ -171,7 +171,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5, delay: 1.5 }}
-                className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray font-medium text-[1rem] w-full px-4 z-50"
+                className="absolute top-[54%] sm:top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray font-medium text-[0.9rem] sm:text-[1rem] w-full px-4 z-50"
               >
                 {slides[activeIndex].subHeading}
               </motion.p>
