@@ -78,6 +78,7 @@ export default function Home() {
                 exit={{ opacity: 0, scale: 1.2 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
                 className="relative w-[900px] h-[900px] -mt-12"
+                style={{ width: '900px', height: '900px' }}
               >
                 <RiveScrollViewer src={slides[activeIndex].src} />
               </motion.div>
