@@ -29,13 +29,10 @@ export default function Home() {
       
       isScrollingRef.current = true;
 
-      // Determine scroll direction
-      const direction = e.deltaY > 0 ? 1 : -1;
-      
-      // Update index based on direction
-      if (direction > 0 && activeIndex < slides.length - 1) {
+      // Always move only one step, regardless of scroll intensity
+      if (e.deltaY > 0 && activeIndex < slides.length - 1) {
         setActiveIndex(prev => prev + 1);
-      } else if (direction < 0 && activeIndex > 0) {
+      } else if (e.deltaY < 0 && activeIndex > 0) {
         setActiveIndex(prev => prev - 1);
       }
 
@@ -52,16 +49,6 @@ export default function Home() {
     }
   }, [activeIndex]);
 
-  const handleIndicatorClick = (index) => {
-    if (isScrollingRef.current) return;
-    
-    isScrollingRef.current = true;
-    setActiveIndex(index);
-    
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 1000);
-  };
 
   return (
     <div 
@@ -78,25 +65,6 @@ export default function Home() {
       </header>
 
       <div className="h-[60px] sm:h-[72px]" />
-
-      {/* Scroll Indicators */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3">
-        {slides.map((_, index) => (
-          <motion.button
-            key={index}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === activeIndex 
-                ? 'bg-black scale-125 shadow-lg' 
-                : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
-            }`}
-            onClick={() => handleIndicatorClick(index)}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            disabled={isScrollingRef.current}
-            style={{ cursor: isScrollingRef.current ? 'not-allowed' : 'pointer' }}
-          />
-        ))}
-      </div>
 
       <main className="flex flex-col items-center flex-grow relative">
         
