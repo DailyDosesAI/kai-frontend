@@ -8,17 +8,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 
 const slides = [
-  { src: "/1.riv", label: "Human Like AI Tutor" },
-  { src: "/2.riv", label: "Your Personalized Road Map" },
-  { src: "/2.1.riv", label: "" },
-  { src: "/3.riv", label: "Voice and Video Calls and text" },
-  { src: "/4.riv", label: "Your Personalized  Practices" },
+  {
+    src: "/1.riv",
+    label: "Human Like AI Tutor",
+    subHeading: "Learn AI English With AI and get  real time feedback",
+  },
+  {
+    src: "/2.riv",
+    label: "Your Personalized Road Map",
+    subHeading: "Learn AI English With AI and get  real time feedback",
+  },
+  { src: "/2.1.riv", label: "", subHeading: "" },
+  {
+    src: "/3.riv",
+    label: "Voice and Video Calls and text",
+    subHeading: "Learn AI English With AI and get  real time feedback",
+  },
+  //{ src: "/4.riv", label: "Your Personalized  Practices" },
 ];
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
   const isLockedRef = useRef(false);
+  const touchStartYRef = useRef(0);
+  const touchEndYRef = useRef(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -42,7 +56,6 @@ export default function Home() {
         return prevIndex;
       });
 
-      
       isLockedRef.current = true;
 
       setTimeout(() => {
@@ -50,12 +63,55 @@ export default function Home() {
       }, 2000);
     };
 
+    // Touch events for mobile devices
+    const onTouchStart = (e) => {
+      touchStartYRef.current = e.touches[0].clientY;
+    };
+
+    const onTouchEnd = (e) => {
+      if (isLockedRef.current) return;
+
+      touchEndYRef.current = e.changedTouches[0].clientY;
+      const touchDiff = touchStartYRef.current - touchEndYRef.current;
+      const minSwipeDistance = 50; // Minimum distance for swipe
+
+      if (Math.abs(touchDiff) > minSwipeDistance) {
+        const direction = Math.sign(touchDiff);
+
+        setActiveIndex((prevIndex) => {
+          if (direction > 0 && prevIndex < slides.length - 1) {
+            return prevIndex + 1;
+          } else if (direction < 0 && prevIndex > 0) {
+            return prevIndex - 1;
+          }
+          return prevIndex;
+        });
+
+        isLockedRef.current = true;
+
+        setTimeout(() => {
+          isLockedRef.current = false;
+        }, 2000);
+      }
+    };
+
+    // Add event listeners
     container.addEventListener("wheel", onWheel, { passive: false });
-    return () => container.removeEventListener("wheel", onWheel);
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchend", onTouchEnd);
+    };
   }, []);
 
   return (
-    <div ref={containerRef} className="flex flex-col min-h-screen overflow-hidden">
+    <div
+      ref={containerRef}
+      className="flex flex-col min-h-screen overflow-hidden"
+    >
       <header className="bg-nav-bar py-4 sm:py-6 fixed w-full top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4 sm:px-10">
           <h1 className="text-xl sm:text-2xl font-bold text-black">Kai</h1>
@@ -77,7 +133,9 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.2 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
-                className={`relative w-[850px] h-[850px] ${activeIndex === 2 ? "-mt-16" : "-mt-12"}`}
+                className={`relative w-[850px] h-[850px] ${
+                  activeIndex === 2 ? "-mt-16" : "-mt-12"
+                }`}
               >
                 <RiveScrollViewer src={slides[activeIndex].src} />
               </motion.div>
@@ -100,12 +158,17 @@ export default function Home() {
                 deleteSpeed={40}
                 delaySpeed={1000}
               />
+
+              <div className="text-center text-gray font-medium text-[1rem] mt-4">
+                <p>{slides[activeIndex].subHeading}</p>
+              </div>
+
             </motion.p>
           </div>
         </div>
 
         <AnimatePresence>
-          {activeIndex === 4 && (
+          {activeIndex === 3 && (
             <motion.div
               key="download-buttons"
               initial={{ opacity: 0, y: 30 }}
@@ -139,7 +202,7 @@ export default function Home() {
       </main>
 
       <AnimatePresence>
-        {activeIndex === 4 && (
+        {activeIndex === 3 && (
           <motion.footer
             key="sticky-footer"
             initial={{ opacity: 0, y: 50 }}
@@ -149,15 +212,13 @@ export default function Home() {
             className="fixed inset-x-0 bottom-0 bg-transparent border-t border-black/10 py-4 sm:py-6 flex flex-col items-center space-y-2 sm:space-y-4 z-50"
             style={{ minHeight: 120 }}
           >
-            <p className="text-gray text-xs sm:text-xs">Made with ❤️ in Vancouver</p>
-            <p className="text-gray text-xs sm:text-xs text-center max-w-xs sm:max-w-lg mx-auto leading-tight">
-              Address: 456 Business Avenue, Suite 200, Vancouver, BC V6B 1A8, Canada
+            <p className="text-gray text-xs sm:text-xs">
+              Made with ❤️ in Vancouver
             </p>
-            <div className="flex items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
-              <Link href="https://google.com" className="hover:opacity-80 transition-opacity">
-                <Image src="/linkdein.svg" alt="LinkedIn" width={20} height={20} />
-              </Link>
-            </div>
+            <p className="text-gray text-xs sm:text-xs text-center max-w-xs sm:max-w-lg mx-auto leading-tight">
+              Address: 456 Business Avenue, Suite 200, Vancouver, BC V6B 1A8,
+              Canada
+            </p>
           </motion.footer>
         )}
       </AnimatePresence>

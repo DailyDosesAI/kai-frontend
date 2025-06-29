@@ -11,10 +11,12 @@ html, body {
   overflow: hidden;
   height: 100%;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  touch-action: pan-y; /* Enable vertical touch scrolling */
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Figtree', 'var(--font-figtree)', Arial, Helvetica, sans-serif;
 }
 
 /* Ensure Rive animations render properly */
@@ -25,4 +27,11 @@ canvas {
 /* Radial gradient utility */
 .bg-gradient-radial {
   background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Mobile-specific touch improvements */
+@media (max-width: 768px) {
+  html, body {
+    touch-action: manipulation; /* Optimize for touch */
+  }
 }
