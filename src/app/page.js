@@ -18,60 +18,44 @@ const slides = [
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
-  const isScrollingRef = useRef(false);
+  const isLockedRef = useRef(false);
 
   useEffect(() => {
-    let isProcessing = false;
-    
+    const container = containerRef.current;
+    if (!container) return;
+
     const onWheel = (e) => {
       e.preventDefault();
-      
-      // Strong protection against multiple scroll events
-      if (isScrollingRef.current || isProcessing) return;
-      
-      isScrollingRef.current = true;
-      isProcessing = true;
 
-      // Always move only one step, regardless of scroll intensity
-      // Use Math.sign to get only direction (-1, 0, 1) regardless of intensity
+      if (isLockedRef.current) return; // اگر قفل فعاله، نادیده بگیر
+
       const direction = Math.sign(e.deltaY);
-      
-      if (direction > 0 && activeIndex < slides.length - 1) {
-        setActiveIndex(prev => prev + 1);
-      } else if (direction < 0 && activeIndex > 0) {
-        setActiveIndex(prev => prev - 1);
-      }
 
-      // Reset scroll lock after animation
+      if (direction === 0) return; // اسکرول صفر یعنی تغییر نکن
+
+      setActiveIndex((prevIndex) => {
+        if (direction > 0 && prevIndex < slides.length - 1) {
+          return prevIndex + 1;
+        } else if (direction < 0 && prevIndex > 0) {
+          return prevIndex - 1;
+        }
+        return prevIndex;
+      });
+
+      
+      isLockedRef.current = true;
+
       setTimeout(() => {
-        isScrollingRef.current = false;
-        isProcessing = false;
-      }, 800); // Longer delay to ensure animation completes
+        isLockedRef.current = false;
+      }, 2000);
     };
 
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("wheel", onWheel, { passive: false });
-      return () => container.removeEventListener("wheel", onWheel);
-    }
-  }, [activeIndex]);
-
-  const handleIndicatorClick = (index) => {
-    if (isScrollingRef.current) return; // Prevent clicking while scrolling
-    
-    isScrollingRef.current = true;
-    setActiveIndex(index);
-    
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 800); // Same delay as scroll
-  };
+    container.addEventListener("wheel", onWheel, { passive: false });
+    return () => container.removeEventListener("wheel", onWheel);
+  }, []);
 
   return (
-    <div 
-      ref={containerRef}
-      className="flex flex-col min-h-screen overflow-hidden"
-    >
+    <div ref={containerRef} className="flex flex-col min-h-screen overflow-hidden">
       <header className="bg-nav-bar py-4 sm:py-6 fixed w-full top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4 sm:px-10">
           <h1 className="text-xl sm:text-2xl font-bold text-black">Kai</h1>
@@ -84,7 +68,6 @@ export default function Home() {
       <div className="h-[60px] sm:h-[72px]" />
 
       <main className="flex flex-col items-center flex-grow relative">
-        
         <div className="max-w-full sm:max-w-[600px] w-full flex flex-col items-center">
           <div className="w-full h-screen flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -96,12 +79,10 @@ export default function Home() {
                 transition={{ duration: 0.7, ease: "easeInOut" }}
                 className="relative w-[800px] h-[800px] -mt-12"
               >
-                <RiveScrollViewer
-                  src={slides[activeIndex].src}
-                />
+                <RiveScrollViewer src={slides[activeIndex].src} />
               </motion.div>
             </AnimatePresence>
-            
+
             <motion.p
               key={`label-${activeIndex}`}
               initial={{ opacity: 0, y: 20 }}
@@ -168,24 +149,13 @@ export default function Home() {
             className="fixed inset-x-0 bottom-0 bg-transparent border-t border-black/10 py-4 sm:py-6 flex flex-col items-center space-y-2 sm:space-y-4 z-50"
             style={{ minHeight: 120 }}
           >
-            <p className="text-gray text-xs sm:text-xs">
-              Made with ❤️ in Vancouver
-            </p>
+            <p className="text-gray text-xs sm:text-xs">Made with ❤️ in Vancouver</p>
             <p className="text-gray text-xs sm:text-xs text-center max-w-xs sm:max-w-lg mx-auto leading-tight">
-              Address: 456 Business Avenue, Suite 200, Vancouver, BC V6B 1A8,
-              Canada
+              Address: 456 Business Avenue, Suite 200, Vancouver, BC V6B 1A8, Canada
             </p>
             <div className="flex items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
-              <Link
-                href="https://google.com"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/linkdein.svg"
-                  alt="LinkedIn"
-                  width={20}
-                  height={20}
-                />
+              <Link href="https://google.com" className="hover:opacity-80 transition-opacity">
+                <Image src="/linkdein.svg" alt="LinkedIn" width={20} height={20} />
               </Link>
             </div>
           </motion.footer>
