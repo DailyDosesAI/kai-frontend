@@ -43,10 +43,10 @@ export default function Home() {
         setActiveIndex(prev => prev - 1);
       }
 
-      // Reset scroll lock after animation with longer delay
+      // Reset scroll lock after animation with shorter delay
       scrollTimeout = setTimeout(() => {
         isScrollingRef.current = false;
-      }, 1500); // Increased delay to prevent rapid scrolling
+      }, 800); // Reduced delay to allow proper navigation
     };
 
     const container = containerRef.current;
@@ -69,7 +69,7 @@ export default function Home() {
     
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 1500); // Same delay as scroll
+    }, 800); // Same delay as scroll
   };
 
   return (
