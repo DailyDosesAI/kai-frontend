@@ -53,7 +53,7 @@ export default function Home() {
   }, [activeIndex]);
 
   const handleIndicatorClick = (index) => {
-    if (isScrollingRef.current) return; // Prevent clicking while scrolling
+    if (isScrollingRef.current) return;
     
     isScrollingRef.current = true;
     setActiveIndex(index);
@@ -84,9 +84,9 @@ export default function Home() {
         {slides.map((_, index) => (
           <motion.button
             key={index}
-            className={`w-4 h-4 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === activeIndex 
-                ? 'bg-blue scale-125 shadow-lg' 
+                ? 'bg-black scale-125 shadow-lg' 
                 : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
             }`}
             onClick={() => handleIndicatorClick(index)}
