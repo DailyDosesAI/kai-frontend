@@ -171,7 +171,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5, delay: 1.5 }}
-                className="absolute top-[54%] sm:top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray font-medium text-[0.9rem] sm:text-[1rem] w-full px-4 z-50"
+                className="absolute top-[50%] sm:top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray font-medium text-[0.9rem] sm:text-[1rem] w-full px-4 z-50"
               >
                 {slides[activeIndex].subHeading}
               </motion.p>
