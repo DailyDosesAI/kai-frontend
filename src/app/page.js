@@ -115,10 +115,13 @@ export default function Home() {
       <header className="bg-nav-bar py-4 sm:py-6 fixed w-full top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-4 sm:px-10">
           <h1 className="text-xl sm:text-2xl font-bold text-black">Kai Language Lab</h1>
-          <div className="bg-blue text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base cursor-pointer hover:bg-blue/90 transition-colors">
-            <Link href="mailto:hi@dailydoses.ai" className="text-white no-underline">
-              <h2>Get in Touch</h2>
-            </Link>
+          <div className="flex items-center gap-[10px]">
+            <div className="bg-blue text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base cursor-pointer hover:bg-blue/90 transition-colors">
+              <Link href="mailto:hi@dailydoses.ai" className="text-white no-underline">
+                <h2>Get in Touch</h2>
+              </Link>
+            </div>
+            <Link href="/privacy-policy" className="text-black ml-4 text-sm sm:text-base hover:underline">Privacy policy</Link>
           </div>
         </div>
       </header>
