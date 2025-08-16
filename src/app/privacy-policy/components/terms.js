@@ -1,7 +1,7 @@
 export default function Terms() {
   return (
     <>
-      <div className="container mx-auto max-w-[800px] text-[#333333] leading-relaxed" id="privacy_policy">
+      <div className="container mx-auto max-w-[800px] text-[#333333] leading-relaxed" id="terms_of_use">
         <h1 className="mt-6 mb-2 font-bold text-4xl">Terms of Use:</h1>
         <p className="mb-4">
           <strong>Welcome to Kai:</strong>{" "}
