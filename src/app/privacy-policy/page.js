@@ -249,7 +249,7 @@ export default function PrivacyPolicy() {
         </ul>
         <p className="mb-4">
           To exercise any of these rights, please contact{" "}
-          <a className="text-[#0066cc] no-underline hover:underline" href="mailto:hi@dailydoses.ai">hi@dailydoses.ai</a>. We may need to
+          <a className="text-[#0066cc] no-underline hover:underline" href="mailto:hi@kaistory.ai">hi@dailydoses.ai</a>. We may need to
           verify your identity before fulfilling requests. We typically respond
           within 30 days as required by law. You also have the right to lodge
           complaints with your local data protection authority if you believe we
@@ -302,7 +302,7 @@ export default function PrivacyPolicy() {
         <ul className="mb-4 pl-5 space-y-2">
           <li>
             <strong>Email:</strong>{" "}
-            <a className="text-[#0066cc] no-underline hover:underline" href="mailto:hi@dailydoses.ai">hi@dailydoses.ai</a>
+            <a className="text-[#0066cc] no-underline hover:underline" href="mailto:hi@kaistory.ai">hi@dailydoses.ai</a>
           </li>
           <li>
             <strong>Mail:</strong> 18th Floor, WeWork – Marine Gateway, 450 SW

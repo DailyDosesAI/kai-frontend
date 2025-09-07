@@ -117,7 +117,7 @@ export default function Home() {
           <h1 className="text-xl sm:text-2xl font-bold text-black">Kai Language Lab</h1>
           <div className="flex items-center gap-[10px]">
             <div className="bg-blue text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base cursor-pointer hover:bg-blue/90 transition-colors">
-              <Link href="mailto:hi@dailydoses.ai" className="text-white no-underline">
+              <Link href="mailto:hi@kaistory.ai" className="text-white no-underline">
                 <h2>Get in Touch</h2>
               </Link>
             </div>
