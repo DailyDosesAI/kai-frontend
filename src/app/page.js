@@ -121,6 +121,14 @@ export default function Home() {
                 <h2>Get in Touch</h2>
               </Link>
             </div>
+            <Link href="/LifeStory">
+              <div className="relative bg-purple-500 text-white rounded-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base cursor-pointer transition-all duration-300 hover:bg-amber-50 hover:text-purple-500 group overflow-hidden active:scale-[0.1] transform">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin-slow p-[2px]">
+                  <div className="w-full h-full rounded-full bg-amber-50"></div>
+                </div>
+                <h2 className="relative z-10">Life Story</h2>
+              </div>
+            </Link>
             <Link href="/privacy-policy" className="text-black ml-4 text-sm sm:text-base hover:underline">Privacy policy</Link>
           </div>
         </div>
