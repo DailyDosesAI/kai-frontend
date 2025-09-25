@@ -29,6 +29,27 @@ canvas {
   background: radial-gradient(circle, var(--tw-gradient-stops));
 }
 
+/* Animated gradient shadow */
+@keyframes gradient-shadow {
+  0%, 100% {
+    background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6);
+  }
+  25% {
+    background: linear-gradient(45deg, #f59e0b, #ec4899, #8b5cf6);
+  }
+  50% {
+    background: linear-gradient(45deg, #10b981, #f59e0b, #ec4899);
+  }
+  75% {
+    background: linear-gradient(45deg, #3b82f6, #10b981, #f59e0b);
+  }
+}
+
+.animate-gradient-shadow {
+  animation: gradient-shadow 4s ease-in-out infinite;
+  background-size: 400% 400%;
+}
+
 /* Mobile-specific touch improvements */
 @media (max-width: 768px) {
   html, body {
