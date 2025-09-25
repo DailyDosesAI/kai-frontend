@@ -63,7 +63,7 @@ export default function LifeStoryPrivacy() {
                   <li className="flex items-start">
                     <span className="text-blue mr-2">•</span>
                     <div>
-                      <strong>Learning Progress:</strong> Lesson completions, quiz scores, skill improvements, and time spent learning
+                      <strong>Learning Progress:</strong> Lesson completions, skill improvements, and time spent learning
                     </div>
                   </li>
                   <li className="flex items-start">
